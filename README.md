@@ -4,9 +4,7 @@ The idea behind this is to develop a framework to deploy fast and deployable web
 This project is using Vaadin and Jackrabbit Oak.
 
 Project references:
-![Vaadin logo](https://www.vaadin.com/images/vaadin/vaadin-logo-small.png)
 [Vaadin](https://www.vaadin.com)
-![Vaadin logo](https://www.vaadin.com/images/vaadin/vaadin-logo-small.png)
 [Apache Jackrabbit project](http://jackrabbit.apache.org/)
 [Jackrabbi Oak](https://jackrabbit.apache.org/oak/docs/)
 
