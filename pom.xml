@@ -22,10 +22,15 @@
 		<Vaadin-Addon>${artifactId}-${project.version}.jar</Vaadin-Addon>
 	</properties>
 
-	<organization>
-		<name>Marko Pahić</name>
-		<url>https://github.com/mpahic/kani</url>
-	</organization>
+	<developers>
+      <developer>
+        <id>mpahic</id>
+        <name>Marko Pahić</name>
+        <roles>
+          <role>developer</role>
+        </roles>
+      </developer>
+    </developers>
     
 	<scm>
 		<url>git://github.com/mpahic/kani.git</url>
