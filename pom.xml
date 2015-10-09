@@ -6,7 +6,7 @@
 	<artifactId>gears-sdk</artifactId>
 	<packaging>jar</packaging>
 	<version>7.5.4</version>
-	<name>KaniComponent Add-on</name>
+	<name>Gears SDK</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -36,7 +36,7 @@
 		<url>git://github.com/mpahic/gears-sdk.git</url>
 		<connection>scm:git:git://github.com/mpahic/gears-sdk.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com:/mpahic/${ComponentClassName}.git</developerConnection>
-		<tag>KaniComponent add-on for Vaadin</tag>
+		<tag>Gears SDK for building quick apps</tag>
 	</scm>
 
 	<issueManagement>
@@ -153,7 +153,7 @@
 							<!-- Package format version - do not change -->
 							<Vaadin-Package-Version>1</Vaadin-Package-Version>
 							<Vaadin-License-Title>${Vaadin-License-Title}</Vaadin-License-Title>
-							<Vaadin-Widgetsets>org.cloudcog.kani.WidgetSet</Vaadin-Widgetsets>
+							<Vaadin-Widgetsets>org.cloudcog.gears.WidgetSet</Vaadin-Widgetsets>
 						</manifestEntries>
 					</archive>
 				</configuration>
