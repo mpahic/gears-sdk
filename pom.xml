@@ -33,15 +33,15 @@
     </developers>
     
 	<scm>
-		<url>git://github.com/mpahic/kani.git</url>
-		<connection>scm:git:git://github.com/mpahic/kani.git</connection>
+		<url>git://github.com/mpahic/gears-sdk.git</url>
+		<connection>scm:git:git://github.com/mpahic/gears-sdk.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com:/mpahic/${ComponentClassName}.git</developerConnection>
 		<tag>KaniComponent add-on for Vaadin</tag>
 	</scm>
 
 	<issueManagement>
 		<system>GitHub</system>
-		<url>https://github.com/mpahic/kani/issues</url>
+		<url>https://github.com/mpahic/gears-sdk/issues</url>
 	</issueManagement>
 
 	<licenses>
@@ -116,7 +116,7 @@
 			<version>1.7.5</version>
 		</dependency>
 		
-		<!-- Testing framework for kani project -->
+		<!-- Testing framework libraries -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
