@@ -1,4 +1,4 @@
-# Kani :rabbit2:
+# gears-sdk :rabbit2:
 The idea behind this is to develop a framework to deploy fast and deployable web applications without the need of external database or external user management.
 
 This project is using Vaadin and Jackrabbit Oak.

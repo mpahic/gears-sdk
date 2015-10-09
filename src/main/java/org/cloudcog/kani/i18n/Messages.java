@@ -17,7 +17,7 @@ import org.cloudcog.kani.RepositoryContext;
 public class Messages {
 
 	private static Map<Locale, ResourceBundle> resourceMap = new HashMap<Locale, ResourceBundle>();
-	private static final String BUNDLE_NAME = "com.cloudcog.gears.i18n.messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "org.cloudcog.gears.i18n.messages"; //$NON-NLS-1$
 
 	private Messages() {
 	}

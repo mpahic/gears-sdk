@@ -38,7 +38,7 @@ public class RepositoryContext {
 		log.info("Logging user: " + username);
 
 		Session session = RepositoryContext.getRepository().login(new SimpleCredentials(username, password.toCharArray()));
-		InputStream inputSteram = RepositoryContext.class.getResourceAsStream("/com/cloudcog/kani/repository/data/nodeTypes.cnd");
+		InputStream inputSteram = RepositoryContext.class.getResourceAsStream("/org/cloudcog/kani/repository/data/nodeTypes.cnd");
 		Reader reader = new InputStreamReader(inputSteram);
 		CndImporter.registerNodeTypes(reader, session);
 		// TODO should importer be here at all?
