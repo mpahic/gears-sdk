@@ -28,7 +28,21 @@ public class UserDAO {
 
 	public static User  getCurrentUser(Session session) throws AccessDeniedException, UnsupportedRepositoryOperationException, RepositoryException {
 		JackrabbitSession js = (JackrabbitSession) session;
-		return (User) js.getUserManager().getAuthorizable(session.getUserID());
+		User user = (User) js.getUserManager().getAuthorizable(session.getUserID());
+		if (user == null) {
+			throw new RepositoryException("User is null");
+		}
+		return user;
+	}
+
+	public static User getUser(Session session, String username)
+			throws AccessDeniedException, UnsupportedRepositoryOperationException, RepositoryException {
+		JackrabbitSession js = (JackrabbitSession) session;
+		User user = (User) js.getUserManager().getAuthorizable(username);
+		if (user == null) {
+			throw new RepositoryException("User is null");
+		}
+		return user;
 	}
 
 	public static List<User> getAllUsers(Session session) throws RepositoryException {
@@ -39,12 +53,20 @@ public class UserDAO {
 
 		while (iter.hasNext()) {
 			Authorizable auth = iter.next();
-			if (!auth.isGroup()) {
+			if (!auth.isGroup() && !ANONIMOUS_USER.equalsIgnoreCase(auth.getPrincipal().getName())) {
 				users.add((User) auth);
 			}
 		}
 
 		return users;
+	}
+
+	public static void changePassword(User user, String password, Session session) throws RepositoryException {
+		UserManager userManager = ((JackrabbitSession) session).getUserManager();
+        Authorizable authorizable = userManager.getAuthorizable(user.getID());
+
+        ((User) authorizable).changePassword(password);
+
 	}
 
 	public static List<Group> getAllGroups(Session session) throws RepositoryException {
@@ -117,7 +139,7 @@ public class UserDAO {
 		} else {
 			Iterator<Group> groupsIterator = user.declaredMemberOf();
 			while (groupsIterator.hasNext()) {
-				Group group = (Group) groupsIterator.next();
+				Group group = groupsIterator.next();
 				if (goupHasPermissions(group, permissions)) {
 					return true;
 				}

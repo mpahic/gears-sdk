@@ -16,8 +16,7 @@ import javax.jcr.SimpleCredentials;
 
 import org.apache.jackrabbit.commons.cnd.CndImporter;
 import org.apache.jackrabbit.commons.cnd.ParseException;
-import org.apache.jackrabbit.oak.Oak;
-import org.apache.jackrabbit.oak.jcr.Jcr;
+import org.apache.jackrabbit.core.TransientRepository;
 import org.cloudcog.gears.sdk.repository.user.UserDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,19 +28,22 @@ public class RepositoryContext {
 
 	private static final Logger log = LoggerFactory.getLogger(RepositoryContext.class);
 
-	private static final String SESSION_PARAM = "jcrSession";
+	public static final String SESSION_PARAM = "jcrSession";
 	
 	private static Repository repository;
-	private static Session anonymousSession;
+	// private static Session anonymousSession;
 
 	public static Session login(String username, String password) throws LoginException, RepositoryException, FileNotFoundException, ParseException, IOException {
 		log.info("Logging user: " + username);
 
 		Session session = RepositoryContext.getRepository().login(new SimpleCredentials(username, password.toCharArray()));
-		InputStream inputSteram = RepositoryContext.class.getResourceAsStream("/org/cloudcog/gears/repository/data/nodeTypes.cnd");
-		Reader reader = new InputStreamReader(inputSteram);
+		InputStream inputStream = RepositoryContext.class.getResourceAsStream("/org/cloudcog/gears/repository/data/nodeTypes.cnd");
+		Reader reader = new InputStreamReader(inputStream);
 		CndImporter.registerNodeTypes(reader, session);
 		// TODO should importer be here at all?
+		if(session != null) {
+			RepositoryContext.setJcrSession(session);
+		}
 
 		return session;
 	}
@@ -52,6 +54,7 @@ public class RepositoryContext {
 			session.logout();
 			VaadinService.getCurrentRequest().getWrappedSession().removeAttribute(SESSION_PARAM);
 		}
+        VaadinSession.getCurrent().close();
 	}
 
 	public static Boolean isAuthorized() {
@@ -80,23 +83,29 @@ public class RepositoryContext {
 		if (session == null) {
 			session = RepositoryContext.createAnonymusSession();
 			VaadinService.getCurrentRequest().getWrappedSession().setAttribute(SESSION_PARAM, session);
+		} else if (!session.isLive()) {
+			VaadinService.getCurrentRequest().getWrappedSession().invalidate();
 		}
+		return session;
+	}
+
+	public static Session impersonate(String user) throws LoginException, RepositoryException {
+		Session session = RepositoryContext.getJcrSession().impersonate(new SimpleCredentials(user, new char[0]));
+
+		VaadinService.getCurrentRequest().getWrappedSession().setAttribute(SESSION_PARAM, session);
 		return session;
 	}
 
 	public static Repository getRepository() throws RepositoryException {
 		if (repository == null) {
-			repository = new Jcr(new Oak()).createRepository();
+			repository = new TransientRepository(); 
 		}
 		return repository;
 	}
 
 	public static Session createAnonymusSession() throws LoginException, RepositoryException {
 		log.info("Using guest credentials");
-		if (anonymousSession == null) {
-			anonymousSession = repository.login(new GuestCredentials());
-		}
-		return anonymousSession;
+		return getRepository().login(new GuestCredentials());
 	}
 
 }

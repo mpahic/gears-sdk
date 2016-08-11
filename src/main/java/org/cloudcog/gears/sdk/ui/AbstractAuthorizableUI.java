@@ -8,7 +8,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.UI;
 
-public abstract class AbstractAuthorizableUI extends UI implements ISessionListener {
+public abstract class AbstractAuthorizableUI extends GearsUI implements ISessionListener {
 	private static final long serialVersionUID = 4786085432570500274L;
 
 	@Override
