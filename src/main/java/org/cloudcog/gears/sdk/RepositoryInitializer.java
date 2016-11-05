@@ -21,7 +21,7 @@ public class RepositoryInitializer implements ServletContextListener {
 			CndImporter.registerNodeTypes(
 					new InputStreamReader(
 							this.getClass().getResourceAsStream("/org/cloudcog/gears/repository/data/nodeTypes.cnd")),
-					RepositoryContext.getJcrSession());
+					null);
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
